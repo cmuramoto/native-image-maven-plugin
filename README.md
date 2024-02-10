@@ -11,7 +11,7 @@ This plugin works like
 
 But it allows one to use a docker image as native-image executable instead of a local installation.
 
-This may be useful to circunvent some [issues](https://github.com/oracle/graal/issues/5814) that can't be helped, except by changing the OS invoking the executable.
+This may be useful to circunvent some [issues](https://github.com/oracle/graal/issues/5814) that can't be helped, except by changing the OS invoking the executable or messing with alternative glibc versions.
 
 To use this plugin with the docker option, it is necessary to have a container image with native-image as entrypoint. E.g.
 
