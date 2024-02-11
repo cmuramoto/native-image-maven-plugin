@@ -114,7 +114,7 @@ int uid = (Integer) Files.getAttribute(home, "unix:uid");
 int gid = (Integer) Files.getAttribute(home, "unix:gid");
 ```
 
-If either of these calls fail, the plugin will not run with --user. If running as root is not acceptable, then
+If either of these calls fail, the plugin will not run with --user, falling back to *root* (or the default user of the image). If running as root is not acceptable, then
 
 ```
     <configuration>
