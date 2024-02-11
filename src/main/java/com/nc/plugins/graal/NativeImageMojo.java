@@ -359,7 +359,7 @@ public class NativeImageMojo extends AbstractMojo {
 		try {
 			Path home = Paths.get(System.getProperty("user.home"));
 			int uid = (Integer) Files.getAttribute(home, "unix:uid");
-			int gid = (Integer) Files.getAttribute(home, "unix:uid");
+			int gid = (Integer) Files.getAttribute(home, "unix:gid");
 
 			return uid + ":" + gid;
 		} catch (Exception e) {
