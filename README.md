@@ -23,7 +23,7 @@ RUN apt update \
     && wget https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-21.0.2/graalvm-community-jdk-21.0.2_linux-x64_bin.tar.gz \
     && tar -xzf graalvm-community-jdk-21.0.2_linux-x64_bin.tar.gz \
     && rm -f graalvm-community-jdk-21.0.2_linux-x64_bin.tar.gz \
-    && mv graalvm-community-openjdk-21.0.2+13.1/ opt/java
+    && mv graalvm-community-openjdk-21.0.2+13.1/ /opt/java
 
 ENV PATH="${PATH}:/opt/java/bin"
     
