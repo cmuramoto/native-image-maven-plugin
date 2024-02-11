@@ -11,9 +11,9 @@ This plugin works like
 
 But it allows one to use a docker image as native-image executable instead of a local installation.
 
-This may be useful to circunvent some [issues](https://github.com/oracle/graal/issues/5814) that can't be helped, except by changing the OS invoking the executable or messing with alternative glibc versions.
+This approach may be useful to circumvent some [issues](https://github.com/oracle/graal/issues/5814) that can't be helped, except by changing the OS invoking the executable or messing with alternative glibc versions.
 
-To use this plugin with the docker option, it is necessary to have a container image with native-image as entrypoint. E.g.
+To use this plugin with the **dockerImage** option, it is necessary to have a container image with native-image as entrypoint. E.g.
 
 ```
 FROM ubuntu:20.04
@@ -30,7 +30,7 @@ ENV PATH="${PATH}:/opt/java/bin"
 ENTRYPOINT ["native-image"]
 ```
 
-Then just add the image tag in pom.xml
+With such an image ready, the plugin can be used by just adding the **dockerImage** tag under the *configuration* of the plugin in your pom.xml
 
 ```
 <plugin>
@@ -58,11 +58,11 @@ Then just add the image tag in pom.xml
 
 The plugin will issue a command as if writing the following statements on a shell:
 
-```
+```bash
 docker container run --workdir $PWD/target --user $(id -u):$(id -g) -v $HOME:$HOME --rm my.company/native-image-builder:latest -cp <project classpath computed by maven> -H:Class=my.native.image.Entrypoint 
 ```
 
-## Plugin automatic configurations & options
+## Plugin defaults & options
 
 ### Volumes
 
@@ -131,6 +131,7 @@ If one wishes to use a docker image which packs graal but does not use native-im
 
 ```
     <configuration>
+        <dockerImage>my.company/image-with-graal-jdk:latest</dockerImage>
         <dockerEntryPoint>/my-graalvm/bin/native-image</dockerEntryPoint>
         ...
     </configuration>
