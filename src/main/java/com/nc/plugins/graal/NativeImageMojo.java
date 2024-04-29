@@ -196,7 +196,7 @@ public class NativeImageMojo extends AbstractMojo {
 
 		ProcessBuilder rv;
 
-		if (image.isBlank()) {
+		if (image.isEmpty()) {
 			rv = new ProcessBuilder(exe);
 		} else {
 			String uid = uidAndGid();
@@ -219,7 +219,7 @@ public class NativeImageMojo extends AbstractMojo {
 
 			command.add("--rm");
 
-			if (ep != null && !(ep = ep.trim()).isBlank()) {
+			if (ep != null && !(ep = ep.trim()).isEmpty()) {
 				command.add("--entrypoint");
 				command.add(ep);
 			}
@@ -250,7 +250,7 @@ public class NativeImageMojo extends AbstractMojo {
 
 		Entry<String, String> config = version();
 
-		if (dockerImg().isBlank() && !attemptMajorMinor(config.getKey()).equals(attemptMajorMinor(this.plugin.getVersion())))
+		if (dockerImg().isEmpty() && !attemptMajorMinor(config.getKey()).equals(attemptMajorMinor(this.plugin.getVersion())))
 			getLog().warn("Major.Minor version mismatch between " + this.plugin.getArtifactId() + " (" + this.plugin.getVersion() + ") and native-image executable (" + config.getKey() + ")");
 		try {
 			ProcessBuilder processBuilder = executable(config.getValue(), classpathStr);
@@ -268,7 +268,7 @@ public class NativeImageMojo extends AbstractMojo {
 	}
 
 	boolean exists(String v) {
-		if (v != null && !v.isBlank()) {
+		if (v != null && !v.isEmpty()) {
 			try {
 				boolean rv = Files.exists(Paths.get(v));
 
@@ -380,7 +380,7 @@ public class NativeImageMojo extends AbstractMojo {
 
 		ProcessBuilder pb;
 
-		if (image.isBlank()) {
+		if (image.isEmpty()) {
 			Path nativeImageExecutableRelPath = Paths.get("lib", "svm", "bin", "native-image" + (isWindows() ? ".exe" : ""));
 			Path mojoJavaHome = getMojoJavaHome();
 			Path nativeImageExecutable = mojoJavaHome.resolve(nativeImageExecutableRelPath);
@@ -398,7 +398,7 @@ public class NativeImageMojo extends AbstractMojo {
 			getLog().info("Checking: " + image);
 			String ep = this.dockerEntryPoint;
 
-			if (ep != null && !(ep = ep.trim()).isBlank()) {
+			if (ep != null && !(ep = ep.trim()).isEmpty()) {
 				pb = new ProcessBuilder("docker", "container", "run", "--rm", "--entrypoint", ep, image, "--version");
 			} else {
 				pb = new ProcessBuilder("docker", "container", "run", "--rm", image, "--version");
@@ -465,7 +465,7 @@ public class NativeImageMojo extends AbstractMojo {
 				if (exists(lv)) {
 					if (!disableAutomaticVolumes && lv.startsWith(home)) {
 						getLog().warn("Discarding volume map <" + lv + ":" + iv + "> since it is prefixed by $HOME");
-					} else if (iv.isBlank()) {
+					} else if (iv.isEmpty()) {
 						getLog().warn("Invalid image path " + iv);
 					} else {
 						rv.add(e(lv, iv));
